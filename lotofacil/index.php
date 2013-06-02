@@ -1,36 +1,16 @@
 <?php
-
-$r  = isset($_GET['r']) ? $_GET['r'] : '';
-$ok = 1;
-
-if (! strlen( $r ) ){
-    $url = 'http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip';
-    $ok = file_put_contents("lotofacil.zip", file_get_contents($url));
+require_once 'lotofacil.class.php';
+$lf = new Lotofacil();
+$lf->init();
+$lf->conferir_jogos();
+$res = $lf->extrai_resultados(911);
+if ($res) var_dump($res);
+if ($lf->tem_erros()){
+    var_dump($lf->pega_erros());
 }
-
-if ( $ok ){
-    unset($ok);
-    $zip = new ZipArchive;
-    $res = $zip->open('lotofacil.zip');//File name in server.
-    if ($res === TRUE) {
-        $zip->extractTo('extraidos/');//Destination directory
-        $zip->close();
-        echo 'extraído com sucesso';
-    } else {
-        echo 'falha ao extrair arquivo lotofacil.zip';
-    }
-    
-    // Cartelas que serão conferidas
-    $jogos[] = ['02','03','05','08','09','11','12','15','17','18','19','21','22','23','25'];
-    $jogos[] = ['01','02','04','06','07','08','09','10','12','13','16','18','22','24','25'];
-    $jogos[] = ['01','02','03','07','08','09','12','13','14','16','18','19','22','23','25'];
-    $jogos[] = ['01','02','04','11','12','13','14','15','17','19','21','22','23','24','25'];
-    $jogos[] = ['02','03','05','07','09','11','12','15','16','17','19','21','22','23','24'];
-    $jogos[] = ['02','03','05','06','09','11','12','14','17','18','19','21','23','24','25'];
-
-}
-
+exit;
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -39,11 +19,6 @@ if ( $ok ){
         <link rel="stylesheet" type="text/css" href="estilo.css">
     </head>
     <body>
-        <ul class="users">
-            <li><a href=?r=>Marcos</a></li>
-            <li><a href=?r=tia>Tia Maria</a></li>
-            <li><a href=?r=go>Gó</a></li>
-        </ul>
         <table>
             <tr>
                 <th> NR </th>
