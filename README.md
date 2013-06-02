@@ -5,8 +5,8 @@ Classe que faz download do site da CEF e lê arquivo de resultados da Lotofácil
 
 Exemplo de uso (testes):
 
-$lf = new Lotofacil();
-$lf->conferir_jogos();
+$lf = new Lotofacil();\n
+$lf->conferir_jogos();\n
 $res = $lf->extrai_resultados(911); //número do sorteio (concurso).
 if ($res) var_dump($res);
 
