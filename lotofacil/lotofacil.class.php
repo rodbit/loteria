@@ -2,7 +2,7 @@
 
 /**
  * Faz download do arquivo de resultados da Lotofácil do site da Caixa,
- * lê e processa as informações, corrige jogos pré-configurados, etc.
+ * lê e processa as informações, confere jogos, exibe estatísticas, etc.
  *
  * @author Marcos Web
  * @version 1.0.1
@@ -29,14 +29,7 @@ class Lotofacil {
         for($x=1; $x<16;$x++){
             $this->_mais_sorteados = [$x=>0];
         }
-    }
-    
-    
-    
-    public function init(){
-        $this->download();
-        $this->carrega_jogos();
-        $this->processa_arquivo();
+        $this->init();
     }
     
     
@@ -83,15 +76,19 @@ class Lotofacil {
     
     
     /***
-     * Jogos a serem conferidos
+     * Jogos a serem conferidos.
+     * Posteriormente esses números serão armazenados em um .txt e importados
      */
-    public function carrega_jogos(){
-        $this->_jogos[] = ['02','03','05','08','09','11','12','15','17','18','19','21','22','23','25'];
-        $this->_jogos[] = ['01','02','04','06','07','08','09','10','12','13','16','18','22','24','25'];
-        $this->_jogos[] = ['01','02','03','07','08','09','12','13','14','16','18','19','22','23','25'];
-        $this->_jogos[] = ['01','02','04','11','12','13','14','15','17','19','21','22','23','24','25'];
-        $this->_jogos[] = ['02','03','05','07','09','11','12','15','16','17','19','21','22','23','24'];
-        $this->_jogos[] = ['02','03','05','06','09','11','12','14','17','18','19','21','23','24','25'];
+    private function carrega_jogos(){
+        $this->_jogos = 
+        [ 
+            ['02','03','05','08','09','11','12','15','17','18','19','21','22','23','25'],
+            ['01','02','04','06','07','08','09','10','12','13','16','18','22','24','25'],
+            ['01','02','03','07','08','09','12','13','14','16','18','19','22','23','25'],
+            ['01','02','04','11','12','13','14','15','17','19','21','22','23','24','25'],
+            ['02','03','05','07','09','11','12','15','16','17','19','21','22','23','24'],
+            ['02','03','05','06','09','11','12','14','17','18','19','21','23','24','25']
+        ];
     }
     
     
@@ -136,6 +133,14 @@ class Lotofacil {
     
     
     
+    private function init(){
+        $this->download();
+        $this->carrega_jogos();
+        $this->processa_arquivo();
+    }
+    
+    
+    
     /***
      * Lê o arquivo de resultados baixado e armazena dados no Vetor
      */
@@ -170,16 +175,6 @@ class Lotofacil {
             
             // numeros sorteados
             $this->_sorteios[$conc]['nr'] = array_slice($t, 2, 15);
-            
-            // numeros que mais sairam
-            /*
-            $_sorteios[$conc]['15'] = trim( $t[23] );
-            $_sorteios[$conc]['14'] = trim( $t[24] );
-            $_sorteios[$conc]['13'] = trim( $t[25] );
-            $_sorteios[$conc]['12'] = trim( $t[26] );
-            $_sorteios[$conc]['11'] = trim( $t[27] );
-            */
-            //sort( $_sorteios[$x]['nr'] );
         }
     }
     
@@ -200,8 +195,6 @@ class Lotofacil {
         $ret = sort( $num['nr'] );
         return $ret;
     }
-    
-    
     
     
     
