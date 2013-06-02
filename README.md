@@ -1,4 +1,4 @@
-LOTOFACIL
+Lotofacil
 =========
 
 Classe que faz download do site da CEF e lê arquivo de resultados da Lotofácil, confere jogos pré-cadastrados, gera estatísticas, etc.
