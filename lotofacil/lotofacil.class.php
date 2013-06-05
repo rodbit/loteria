@@ -54,16 +54,16 @@ class Lotofacil {
         if(!file_exists($this->_path."D_LOTFAC.HTM") || !isset($_COOKIE['lotofacil'])){
             echo '<br>fazendo download...'; // *****************************
             $url = 'http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip';
-            $down = file_put_contents("tmp/lotofacil.zip", file_get_contents($url));
+            $down = file_put_contents($this->_path."lotofacil.zip", file_get_contents($url));
             if (!$down){
                 $this->_erro[] = 'Erro ao fazer download de '.$url;
                 return false;
             }
             $zip = new ZipArchive;
-            $res = $zip->open('tmp/lotofacil.zip');
+            $res = $zip->open($this->_path.'lotofacil.zip');
             if ($res === TRUE) {
                 echo '<br>descompactando arquivo...'; // *****************************
-                $zip->extractTo('/tmp/');
+                $zip->extractTo($this->_path);
                 $zip->close();
                 unlink($this->_path.'lotofacil.zip');
                 setcookie('lotofacil',date('d/m/Y'), time()+172800); // dura 2 dias
