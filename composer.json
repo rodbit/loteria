@@ -1,0 +1,14 @@
+{
+    "name": "marcosweb/lotofacil",
+    "description": "API de Manipulação de arquivo de resultados da Lotofácil da CEF.",
+    "keywords": ["loteria", "lotofacil", "resultados"],
+    "authors": [
+        {
+            "name": "Marcos Aurelio",
+            "email": "web.mrcs@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    }
+}    
