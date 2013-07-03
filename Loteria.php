@@ -226,6 +226,7 @@ class Loteria {
      * Posteriormente esses números serão armazenados em um .txt e importados
      */
     private function carregaJogos(){
+        $a = ''; // teste
     }
     
     
